@@ -20,7 +20,14 @@ VALIDATION_TARGETS = [
     (
         "Cognitive Organ Interface",
         ROOT / "schemas" / "cognitive-organ-interface.schema.json",
-        ROOT / "examples" / "cognitive-organ-interface.structural-core.example.yaml",
+        ROOT / "examples"
+        / "cognitive-organ-interface.structural-core.example.yaml",
+    ),
+    (
+        "Cognitive Routing Plan",
+        ROOT / "schemas" / "cognitive-routing-plan.schema.json",
+        ROOT / "examples"
+        / "cognitive-routing-plan.deep-structure.example.yaml",
     ),
 ]
 
@@ -30,7 +37,9 @@ def load_json(path: Path) -> dict[str, Any]:
         data = json.load(file)
 
     if not isinstance(data, dict):
-        raise ValueError(f"{path} must contain a JSON object at the root.")
+        raise ValueError(
+            f"{path} must contain a JSON object at the root."
+        )
 
     return data
 
@@ -40,7 +49,9 @@ def load_yaml(path: Path) -> dict[str, Any]:
         data = yaml.safe_load(file)
 
     if not isinstance(data, dict):
-        raise ValueError(f"{path} must contain a YAML mapping at the root.")
+        raise ValueError(
+            f"{path} must contain a YAML mapping at the root."
+        )
 
     return data
 
@@ -73,7 +84,10 @@ def validate_target(
                 str(part) for part in error.absolute_path
             )
             location = location or "<root>"
-            print(f"Error: {location}: {error.message}")
+
+            print(
+                f"Error: {location}: {error.message}"
+            )
 
         return False
 
