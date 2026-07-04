@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 from pathlib import Path
+from typing import Any
 
 import yaml
 from jsonschema import Draft202012Validator, FormatChecker
@@ -10,16 +11,31 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 
-SCHEMA_PATH = ROOT / "schemas" / "cognitive-cycle-record.schema.json"
-EXAMPLE_PATH = ROOT / "examples" / "cognitive-cycle-record.example.yaml"
+VALIDATION_TARGETS = [
+    (
+        "Cognitive Cycle Record",
+        ROOT / "schemas" / "cognitive-cycle-record.schema.json",
+        ROOT / "examples" / "cognitive-cycle-record.example.yaml",
+    ),
+    (
+        "Cognitive Organ Interface",
+        ROOT / "schemas" / "cognitive-organ-interface.schema.json",
+        ROOT / "examples" / "cognitive-organ-interface.structural-core.example.yaml",
+    ),
+]
 
 
-def load_json(path: Path) -> dict:
+def load_json(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as file:
-        return json.load(file)
+        data = json.load(file)
+
+    if not isinstance(data, dict):
+        raise ValueError(f"{path} must contain a JSON object at the root.")
+
+    return data
 
 
-def load_yaml(path: Path) -> dict:
+def load_yaml(path: Path) -> dict[str, Any]:
     with path.open("r", encoding="utf-8") as file:
         data = yaml.safe_load(file)
 
@@ -29,13 +45,17 @@ def load_yaml(path: Path) -> dict:
     return data
 
 
-def main() -> int:
-    print("[validate] Cognitive Cycle Record")
-    print(f"  schema : {SCHEMA_PATH.relative_to(ROOT)}")
-    print(f"  example: {EXAMPLE_PATH.relative_to(ROOT)}")
+def validate_target(
+    title: str,
+    schema_path: Path,
+    example_path: Path,
+) -> bool:
+    print(f"[validate] {title}")
+    print(f"  schema : {schema_path.relative_to(ROOT)}")
+    print(f"  example: {example_path.relative_to(ROOT)}")
 
-    schema = load_json(SCHEMA_PATH)
-    example = load_yaml(EXAMPLE_PATH)
+    schema = load_json(schema_path)
+    example = load_yaml(example_path)
 
     validator = Draft202012Validator(
         schema,
@@ -49,14 +69,35 @@ def main() -> int:
 
     if errors:
         for error in errors:
-            location = ".".join(str(part) for part in error.absolute_path)
+            location = ".".join(
+                str(part) for part in error.absolute_path
+            )
             location = location or "<root>"
             print(f"Error: {location}: {error.message}")
 
-        return 1
+        return False
 
-    print(f"[ok] {EXAMPLE_PATH.name} is valid")
-    return 0
+    print(f"[ok] {example_path.name} is valid")
+    return True
+
+
+def main() -> int:
+    all_valid = True
+
+    for title, schema_path, example_path in VALIDATION_TARGETS:
+        try:
+            valid = validate_target(
+                title,
+                schema_path,
+                example_path,
+            )
+        except Exception as exc:
+            print(f"Error: validation failed: {exc}")
+            valid = False
+
+        all_valid = all_valid and valid
+
+    return 0 if all_valid else 1
 
 
 if __name__ == "__main__":
