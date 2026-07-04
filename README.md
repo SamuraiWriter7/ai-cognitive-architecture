@@ -366,3 +366,52 @@ A cognitive organ is defined by its interface contract rather than by a specific
 
 This creates the foundation for future dynamic cognitive routing and multi-organ orchestration.
 
+## v0.3 — Cognitive Routing Layer
+
+v0.3 introduces explicit cognitive route selection.
+
+While v0.1 records one cognitive cycle and v0.2 defines the interface contracts of cognitive organs, v0.3 defines how a task moves through those organs.
+
+The Cognitive Routing Layer determines:
+
+* which cognitive organs participate
+* the order of activation
+* required, conditional, optional, and fallback organs
+* return routes
+* verification loops
+* boundary-triggered re-integration
+* recovery behavior
+* human escalation conditions
+
+The primary schema is:
+
+`schemas/cognitive-routing-plan.schema.json`
+
+The first reference example defines a deep-structure cognitive route:
+
+`examples/cognitive-routing-plan.deep-structure.example.yaml`
+
+### Architectural Progression
+
+```text
+v0.1
+Cognitive Cycle Record
+        ↓
+Observe one cognitive breath
+
+v0.2
+Cognitive Organ Interface
+        ↓
+Define cognitive organ contracts
+
+v0.3
+Cognitive Routing Layer
+        ↓
+Select the required cognitive path
+```
+
+The central principle of v0.3 is:
+
+> Activate the minimum sufficient cognitive route, then expand the route only when evidence, uncertainty, risk, memory dependency, or structural complexity requires it.
+
+This enables the architecture to move from a fixed cognitive pipeline toward adaptive distributed cognition.
