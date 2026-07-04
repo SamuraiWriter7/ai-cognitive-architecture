@@ -20,20 +20,30 @@ VALIDATION_TARGETS = [
     (
         "Cognitive Organ Interface",
         ROOT / "schemas" / "cognitive-organ-interface.schema.json",
-        ROOT / "examples"
+        ROOT
+        / "examples"
         / "cognitive-organ-interface.structural-core.example.yaml",
     ),
     (
         "Cognitive Routing Plan",
         ROOT / "schemas" / "cognitive-routing-plan.schema.json",
-        ROOT / "examples"
+        ROOT
+        / "examples"
         / "cognitive-routing-plan.deep-structure.example.yaml",
     ),
     (
         "Cognitive Feedback Record",
         ROOT / "schemas" / "cognitive-feedback-record.schema.json",
-        ROOT / "examples"
+        ROOT
+        / "examples"
         / "cognitive-feedback-record.example.yaml",
+    ),
+    (
+        "Cognitive Continuity Trace",
+        ROOT / "schemas" / "cognitive-continuity-trace.schema.json",
+        ROOT
+        / "examples"
+        / "cognitive-continuity-trace.example.yaml",
     ),
 ]
 
