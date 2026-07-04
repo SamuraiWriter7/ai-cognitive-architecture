@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/cognitive-organ-interface.schema.json",
+  "title": "Cognitive Organ Interface",
+  "description": "Defines the machine-readable interface contract of one cognitive organ participating in the AI Cognitive Architecture.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "interface_id",
+    "organ_id",
+    "organ_type",
+    "role",
+    "consumes",
+    "produces",
+    "invocation",
+    "routing",
+    "guarantees",
+    "boundaries",
+    "observability",
+    "failure_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.2"
+    },
+    "interface_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "organ_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "organ_type": {
+      "$ref": "#/$defs/organType"
+    },
+    "role": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "responsibilities",
+        "non_responsibilities"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsibilities": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "non_responsibilities": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "consumes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/artifactContract"
+      }
+    },
+    "produces": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/artifactContract"
+      }
+    },
+    "invocation": {
+      "$ref": "#/$defs/invocationPolicy"
+    },
+    "routing": {
+      "$ref": "#/$defs/routingPolicy"
+    },
+    "guarantees": {
+      "$ref": "#/$defs/guaranteePolicy"
+    },
+    "boundaries": {
+      "$ref": "#/$defs/boundaryPolicy"
+    },
+    "observability": {
+      "$ref": "#/$defs/observabilityPolicy"
+    },
+    "failure_policy": {
+      "$ref": "#/$defs/failurePolicy"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "organType": {
+      "type": "string",
+      "enum": [
+        "finder",
+        "yin_semantic_decomposer",
+        "memory_breathing",
+        "analyst",
+        "structural_core",
+        "verifier",
+        "boundary",
+        "yang_language_recomposer",
+        "human_gate",
+        "structural_rumination",
+        "custom"
+      ]
+    },
+    "artifactContract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact_type",
+        "required"
+      ],
+      "properties": {
+        "artifact_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "schema_ref": {
+          "type": "string"
+        },
+        "required": {
+          "type": "boolean"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "invocationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "preconditions"
+      ],
+      "properties": {
+        "mode": {
+          "type": "string",
+          "enum": [
+            "always",
+            "conditional",
+            "on_request",
+            "event_driven"
+          ]
+        },
+        "preconditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "skip_conditions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "blocking_conditions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "routingPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_predecessors",
+        "allowed_successors"
+      ],
+      "properties": {
+        "allowed_predecessors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organType"
+          },
+          "uniqueItems": true
+        },
+        "allowed_successors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organType"
+          },
+          "uniqueItems": true
+        },
+        "return_routes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organType"
+          },
+          "uniqueItems": true
+        },
+        "human_escalation_allowed": {
+          "type": "boolean"
+        }
+      }
+    },
+    "guaranteePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "must_preserve",
+        "must_report"
+      ],
+      "properties": {
+        "must_preserve": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "must_report": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "quality_conditions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "boundaryPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "prohibited_actions",
+        "authority_level"
+      ],
+      "properties": {
+        "prohibited_actions": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "authority_level": {
+          "type": "string",
+          "enum": [
+            "observe",
+            "interpret",
+            "recommend",
+            "validate",
+            "filter",
+            "gate",
+            "meta_update"
+          ]
+        },
+        "requires_human_review_for": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "observabilityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "record_inputs",
+        "record_outputs",
+        "record_summary",
+        "record_uncertainty"
+      ],
+      "properties": {
+        "record_inputs": {
+          "type": "boolean"
+        },
+        "record_outputs": {
+          "type": "boolean"
+        },
+        "record_summary": {
+          "type": "boolean"
+        },
+        "record_uncertainty": {
+          "type": "boolean"
+        },
+        "trace_fields": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "failurePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "on_failure",
+        "emit_failure_record"
+      ],
+      "properties": {
+        "on_failure": {
+          "type": "string",
+          "enum": [
+            "stop_cycle",
+            "skip_organ",
+            "return_to_predecessor",
+            "route_to_verifier",
+            "route_to_human_gate"
+          ]
+        },
+        "emit_failure_record": {
+          "type": "boolean"
+        },
+        "fallback_organ": {
+          "$ref": "#/$defs/organType"
+        },
+        "failure_artifact_type": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
