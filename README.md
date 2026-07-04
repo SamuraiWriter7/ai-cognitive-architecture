@@ -319,3 +319,50 @@ These are not yet part of v0.1.
 > Structure before expression.
 > Integration before conclusion.
 > Human judgment before closure.
+
+## v0.2 — Cognitive Organ Interface Contract
+
+v0.2 introduces a machine-readable interface contract for cognitive organs participating in the architecture.
+
+While v0.1 defined the record of one complete cognitive cycle, v0.2 defines how individual cognitive organs connect to that cycle.
+
+Each interface declares:
+
+* functional role
+* consumed artifacts
+* produced artifacts
+* invocation conditions
+* routing permissions
+* semantic guarantees
+* authority boundaries
+* observability requirements
+* failure behavior
+
+The primary schema is:
+
+`schemas/cognitive-organ-interface.schema.json`
+
+The first reference example defines the Structural Core interface:
+
+`examples/cognitive-organ-interface.structural-core.example.yaml`
+
+### Architectural Progression
+
+```text
+v0.1
+Cognitive Cycle Record
+        ↓
+Observe one cognitive breath
+
+v0.2
+Cognitive Organ Interface
+        ↓
+Define how cognitive organs connect
+```
+
+The purpose of v0.2 is to move the architecture from a fixed conceptual pipeline toward a replaceable, loosely coupled distributed cognitive system.
+
+A cognitive organ is defined by its interface contract rather than by a specific model, vendor, prompt, or runtime.
+
+This creates the foundation for future dynamic cognitive routing and multi-organ orchestration.
+
