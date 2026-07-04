@@ -1,0 +1,335 @@
+schema_version: "0.5"
+
+continuity_trace_id: cognitive-continuity-trace-001
+
+architecture_id: ai-cognitive-architecture-v0.5
+
+created_at: "2026-07-05T07:00:00+09:00"
+
+lineage:
+  current_cycle_ref: cognitive-cycle-005
+
+  previous_cycle_refs:
+    - cognitive-cycle-001
+    - cognitive-cycle-002
+    - cognitive-cycle-003
+    - cognitive-cycle-004
+
+  routing_plan_ref: routing-plan-deep-structure-001
+
+  feedback_record_refs:
+    - cognitive-feedback-001
+    - cognitive-feedback-002
+
+  parent_trace_refs:
+    - trace-structural-translation-001
+    - trace-distributed-cognition-001
+
+  lineage_depth: 5
+
+inherited_traces:
+  - trace_id: trace-001
+
+    trace_type: question_epicenter
+
+    summary: >
+      Can specialized AI systems be organized as cognitive organs
+      within one auditable distributed cognitive architecture?
+
+    source_ref: cognitive-cycle-001
+
+    importance: 1.0
+    confidence: 0.98
+
+    status: active
+
+    continuity_role: design_seed
+
+    preserve_reason: >
+      This question remains the central architectural epicenter
+      across all current specification layers.
+
+    related_trace_refs:
+      - trace-002
+      - trace-003
+
+  - trace_id: trace-002
+
+    trace_type: design_decision
+
+    summary: >
+      Structural Translation Core integrates meaning,
+      while Human Gate prepares information for human decision.
+
+    source_ref: cognitive-cycle-002
+
+    importance: 0.96
+    confidence: 0.97
+
+    status: active
+
+    continuity_role: constraint
+
+    preserve_reason: >
+      This separation prevents semantic integration
+      from being confused with human decision authority.
+
+    related_trace_refs:
+      - trace-001
+
+  - trace_id: trace-003
+
+    trace_type: routing_pattern
+
+    summary: >
+      Complex architecture tasks benefit from explicit
+      Verifier-to-Structural-Core re-integration.
+
+    source_ref: cognitive-feedback-001
+
+    importance: 0.88
+    confidence: 0.91
+
+    status: active
+
+    continuity_role: routing_hint
+
+    preserve_reason: >
+      The pattern improved consistency in prior deep-structure routes.
+
+    related_trace_refs:
+      - trace-004
+
+  - trace_id: trace-004
+
+    trace_type: feedback_pattern
+
+    summary: >
+      Finder activation may be unnecessary when Memory Breathing
+      already provides sufficient context.
+
+    source_ref: cognitive-feedback-001
+
+    importance: 0.81
+    confidence: 0.84
+
+    status: active
+
+    continuity_role: warning
+
+    preserve_reason: >
+      The observation may support future routing optimization
+      if repeated across additional cognitive cycles.
+
+    related_trace_refs:
+      - trace-003
+
+  - trace_id: trace-005
+
+    trace_type: human_preference
+
+    summary: >
+      Prefer explicit structural records before adding
+      autonomous implementation complexity.
+
+    source_ref: human-feedback-001
+
+    importance: 0.95
+    confidence: 1.0
+
+    status: active
+
+    continuity_role: human_correction
+
+    preserve_reason: >
+      Human architectural preference should remain visible
+      across future specification cycles.
+
+    related_trace_refs: []
+
+  - trace_id: trace-006
+
+    trace_type: unresolved_conflict
+
+    summary: >
+      The architecture uses functional cognitive analogy
+      but must avoid claiming biological brain equivalence.
+
+    source_ref: cognitive-feedback-001
+
+    importance: 0.93
+    confidence: 0.97
+
+    status: active
+
+    continuity_role: warning
+
+    preserve_reason: >
+      The distinction remains important for accurate architectural positioning.
+
+    related_trace_refs:
+      - trace-001
+
+state_transition:
+  before_summary: >
+    The architecture could record cycles, define organs,
+    select routes, and evaluate outcomes.
+
+  after_summary: >
+    The architecture can now preserve important cognitive traces,
+    carry reviewed feedback forward, and seed future cognitive cycles.
+
+  preserved_elements:
+    - trace-001
+    - trace-002
+    - trace-003
+    - trace-005
+    - trace-006
+
+  transformed_elements:
+    - source_trace_ref: trace-004
+
+      transformation_type: strengthen
+
+      output_trace_ref: trace-004-v2
+
+      description: >
+        Finder over-activation is retained as a monitored routing pattern
+        rather than treated as a one-cycle isolated issue.
+
+  dropped_elements:
+    - trace_ref: temporary-example-detail-001
+
+      reason: >
+        The example-specific wording does not affect future architecture decisions.
+
+      review_status: not_required
+
+feedback_carryover:
+  accepted_proposals:
+    - proposal_ref: adaptation-002
+
+      target_layer: routing
+
+      decision_reason: >
+        Verifier-to-Structural-Core re-integration
+        improved consistency in complex design tasks.
+
+  deferred_proposals:
+    - proposal_ref: adaptation-001
+
+      target_layer: routing
+
+      decision_reason: >
+        More feedback records are needed before changing
+        the Finder activation threshold.
+
+  rejected_proposals: []
+
+  repeated_patterns:
+    - pattern_id: routing-pattern-001
+
+      summary: >
+        Re-integration after verification improves complex architecture outputs.
+
+      occurrence_count: 2
+
+      evidence_refs:
+        - cognitive-feedback-001
+        - cognitive-feedback-002
+
+      importance: 0.89
+
+next_cycle_seed:
+  seed_question: >
+    How should cognitive traces be weighted, compressed,
+    and selectively inherited across long-running cognitive lineages?
+
+  required_context_refs:
+    - trace-001
+    - trace-002
+    - trace-003
+    - trace-005
+    - trace-006
+
+  open_conflicts:
+    - >
+      How much historical trace context can be inherited
+      before continuity becomes cognitive overload?
+
+    - >
+      When should an old trace become dormant rather than remain active?
+
+  priority_targets:
+    - trace_weighting
+    - trace_compression
+    - continuity_budget
+    - lineage_auditability
+
+  routing_hints:
+    - Activate Memory Breathing.
+    - Use Analyst for trace-weight comparison.
+    - Use Structural Core for continuity conflict integration.
+    - Use Verifier to check trace loss and unsupported inheritance.
+    - Send architecture-level changes through Human Gate.
+
+  activation_conditions:
+    - >
+      Activate Finder only if external comparison or current evidence is required.
+
+    - >
+      Activate Boundary if continuity rules affect human authority or retention policy.
+
+continuity_policy:
+  max_inherited_traces: 20
+
+  decay_mode: relevance_based
+
+  minimum_importance: 0.65
+
+  preserve_human_corrections: true
+
+  preserve_unresolved_conflicts: true
+
+  require_trace_origin: true
+
+  allow_silent_drop: false
+
+  compression_allowed: true
+
+  review_interval_cycles: 5
+
+human_review:
+  required: true
+
+  decision_status: approved
+
+  reasons:
+    - >
+      The continuity layer determines which structures influence future cognition.
+    - >
+      Human preferences and unresolved conflicts must not be silently removed.
+
+  reviewed_items:
+    - trace-001
+    - trace-002
+    - trace-005
+    - trace-006
+    - adaptation-001
+    - adaptation-002
+
+continuity_summary: >
+  The architecture preserves the central distributed-cognition question,
+  the separation between semantic integration and human authority,
+  an effective verification re-integration route,
+  human preference for explicit structural specification,
+  and the unresolved boundary between functional cognition analogy
+  and biological equivalence.
+
+  The next cycle should investigate trace weighting,
+  compression, continuity budget, and long-lineage auditability.
+
+metadata:
+  architecture: ai-cognitive-architecture
+  release: v0.5.0-candidate
+  layer: cognitive-continuity-trace
