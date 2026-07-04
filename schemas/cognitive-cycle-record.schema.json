@@ -1,0 +1,341 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/cognitive-cycle-record.schema.json",
+  "title": "Cognitive Cycle Record",
+  "description": "A record of one distributed cognitive processing cycle across specialized AI cognitive organs.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "architecture_id",
+    "cycle_id",
+    "created_at",
+    "input",
+    "organs",
+    "cycle",
+    "integration",
+    "human_gate",
+    "rumination"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.1"
+    },
+    "architecture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cycle_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "input": {
+      "$ref": "#/$defs/inputRecord"
+    },
+    "organs": {
+      "$ref": "#/$defs/organRegistry"
+    },
+    "cycle": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/cycleStage"
+      }
+    },
+    "integration": {
+      "$ref": "#/$defs/integrationRecord"
+    },
+    "human_gate": {
+      "$ref": "#/$defs/humanGateRecord"
+    },
+    "rumination": {
+      "$ref": "#/$defs/ruminationRecord"
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "inputRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_text"
+      ],
+      "properties": {
+        "human_text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "environment_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "log_refs": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "organRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "input_refs",
+        "output_refs"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "skipped",
+            "blocked"
+          ]
+        },
+        "input_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "output_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "organRegistry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finder",
+        "yin_semantic_decomposer",
+        "memory_breathing",
+        "analyst",
+        "structural_core",
+        "verifier",
+        "boundary",
+        "yang_language_recomposer",
+        "human_gate",
+        "structural_rumination"
+      ],
+      "properties": {
+        "finder": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "yin_semantic_decomposer": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "memory_breathing": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "analyst": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "structural_core": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "verifier": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "boundary": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "yang_language_recomposer": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "human_gate": {
+          "$ref": "#/$defs/organRecord"
+        },
+        "structural_rumination": {
+          "$ref": "#/$defs/organRecord"
+        }
+      }
+    },
+    "cycleStage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_id",
+        "order",
+        "organ",
+        "status",
+        "input_artifacts",
+        "output_artifacts"
+      ],
+      "properties": {
+        "stage_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "organ": {
+          "type": "string",
+          "enum": [
+            "finder",
+            "yin_semantic_decomposer",
+            "memory_breathing",
+            "analyst",
+            "structural_core",
+            "verifier",
+            "boundary",
+            "yang_language_recomposer",
+            "human_gate",
+            "structural_rumination"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "completed",
+            "skipped",
+            "blocked",
+            "needs_review"
+          ]
+        },
+        "input_artifacts": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "output_artifacts": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    },
+    "conflictItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "conflict_id",
+        "description",
+        "status"
+      ],
+      "properties": {
+        "conflict_id": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "resolved",
+            "unresolved",
+            "human_review_required"
+          ]
+        }
+      }
+    },
+    "priorityItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target",
+        "weight",
+        "reason"
+      ],
+      "properties": {
+        "target": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "reason": {
+          "type": "string"
+        }
+      }
+    },
+    "integrationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "integrated_structure",
+        "conflict_report",
+        "priority_map"
+      ],
+      "properties": {
+        "integrated_structure": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "conflict_report": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/conflictItem"
+          }
+        },
+        "priority_map": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/priorityItem"
+          }
+        }
+      }
+    },
+    "humanGateRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "options",
+        "warnings",
+        "decision_required"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string"
+        },
+        "options": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "warnings": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "decision_required": {
+          "type": "boolean"
+        }
+      }
+    },
+    "ruminationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meta_structure_update",
+        "memory_updates",
+        "routing_updates",
+        "architecture_updates"
+      ],
+      "properties": {
+        "meta_structure_update": {
+          "type": "string"
+        },
+        "memory_updates": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "routing_updates": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "architecture_updates": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    }
+  }
+}
