@@ -1,0 +1,277 @@
+schema_version: "0.3"
+
+routing_plan_id: routing-plan-deep-structure-001
+
+architecture_id: ai-cognitive-architecture-v0.3
+
+created_at: "2026-07-05T05:00:00+09:00"
+
+input_profile:
+  task_type: design
+
+  complexity: 0.92
+  uncertainty: 0.71
+  risk_level: 0.38
+  memory_dependency: 0.86
+  external_information_dependency: 0.45
+
+  required_capabilities:
+    - semantic_decomposition
+    - memory_retrieval
+    - architecture_analysis
+    - conflict_detection
+    - validation
+    - human_language_recomposition
+    - meta_cognitive_review
+
+  notes: >
+    The task requires integration of prior architecture history,
+    structural analysis, validation, and possible routing revision.
+
+routing_mode: deep_structure
+
+selected_route:
+  - step_id: route-step-01
+    order: 1
+    organ: yin_semantic_decomposer
+    activation: required
+    reason: >
+      The design question contains multiple architectural assumptions
+      and requires explicit semantic decomposition.
+    expected_inputs:
+      - HumanText
+    expected_outputs:
+      - SemanticStructure
+      - AssumptionSet
+      - AmbiguityMap
+
+  - step_id: route-step-02
+    order: 2
+    organ: memory_breathing
+    activation: required
+    reason: >
+      The task depends heavily on earlier design history and prior architecture traces.
+    expected_inputs:
+      - SemanticStructure
+    expected_outputs:
+      - ContextFrame
+      - HistoryTrace
+
+  - step_id: route-step-03
+    order: 3
+    organ: finder
+    activation: conditional
+    reason: >
+      External information may be required if the design depends on current facts.
+    activation_condition: >
+      Activate when external_information_dependency exceeds 0.40
+      or when Analyst reports missing external evidence.
+    skip_condition: >
+      Skip when the task can be completed from current context and local records.
+    expected_inputs:
+      - InformationNeed
+    expected_outputs:
+      - RawInfoSet
+
+  - step_id: route-step-04
+    order: 4
+    organ: analyst
+    activation: required
+    reason: >
+      The architecture proposal requires comparison, inference,
+      evaluation, and design reasoning.
+    expected_inputs:
+      - SemanticStructure
+      - ContextFrame
+      - HistoryTrace
+      - RawInfoSet
+    expected_outputs:
+      - AnalysisGraph
+      - HypothesisSet
+      - DesignProposal
+
+  - step_id: route-step-05
+    order: 5
+    organ: structural_core
+    activation: required
+    reason: >
+      Multiple semantic, historical, and analytical structures
+      must be integrated before validation.
+    expected_inputs:
+      - SemanticStructure
+      - ContextFrame
+      - AnalysisGraph
+      - DesignProposal
+    expected_outputs:
+      - IntegratedStructure
+      - ConflictReport
+      - PriorityMap
+
+  - step_id: route-step-06
+    order: 6
+    organ: verifier
+    activation: required
+    reason: >
+      The integrated architecture requires consistency and specification checks.
+    expected_inputs:
+      - IntegratedStructure
+      - ConflictReport
+    expected_outputs:
+      - ValidationReport
+      - RiskMap
+
+  - step_id: route-step-07
+    order: 7
+    organ: boundary
+    activation: conditional
+    reason: >
+      Boundary review is activated when the route introduces safety,
+      authority, or autonomy-sensitive changes.
+    activation_condition: >
+      Activate when risk_level exceeds 0.60,
+      when Verifier reports boundary-sensitive changes,
+      or when human authority may be reduced.
+    skip_condition: >
+      Skip when no boundary-sensitive change is detected.
+    expected_inputs:
+      - IntegratedStructure
+      - ValidationReport
+      - RiskMap
+    expected_outputs:
+      - AllowedActionSet
+      - FilteredOutput
+
+  - step_id: route-step-08
+    order: 8
+    organ: structural_core
+    activation: conditional
+    reason: >
+      Re-integration may be required after Verifier or Boundary returns corrections.
+    activation_condition: >
+      Activate when ValidationReport contains unresolved issues
+      or Boundary modifies the proposed structure.
+    expected_inputs:
+      - ValidationReport
+      - FilteredOutput
+      - IntegratedStructure
+    expected_outputs:
+      - IntegratedStructure
+      - ConflictReport
+      - PriorityMap
+
+  - step_id: route-step-09
+    order: 9
+    organ: yang_language_recomposer
+    activation: required
+    reason: >
+      The validated integrated structure must be translated into human-readable language.
+    expected_inputs:
+      - IntegratedStructure
+      - ValidationReport
+      - FilteredOutput
+    expected_outputs:
+      - HumanText
+      - ExampleSet
+      - Reframing
+
+  - step_id: route-step-10
+    order: 10
+    organ: human_gate
+    activation: required
+    reason: >
+      The result must be presented in a form suitable for human understanding and judgment.
+    expected_inputs:
+      - HumanText
+      - ValidationReport
+      - RiskMap
+    expected_outputs:
+      - HumanFacingBundle
+
+  - step_id: route-step-11
+    order: 11
+    organ: structural_rumination
+    activation: required
+    reason: >
+      The completed route should be reviewed for memory,
+      routing, and architecture improvement.
+    expected_inputs:
+      - HumanFacingBundle
+      - CognitiveCycleRecord
+      - CognitiveRoutingPlan
+    expected_outputs:
+      - MetaStructureUpdate
+      - DesignReflection
+
+route_policy:
+  allow_loops: true
+
+  max_loop_count: 3
+
+  allow_parallel_branches: false
+
+  require_verification_before_output: true
+
+  require_boundary_before_output: false
+
+  preferred_return_routes:
+    - from: verifier
+      to: structural_core
+      condition: >
+        Return when structural conflicts remain unresolved.
+
+    - from: verifier
+      to: analyst
+      condition: >
+        Return when analytical evidence is insufficient.
+
+    - from: boundary
+      to: structural_core
+      condition: >
+        Return when boundary constraints modify the integrated structure.
+
+    - from: structural_core
+      to: memory_breathing
+      condition: >
+        Return when historical context is insufficient for integration.
+
+  termination_conditions:
+    - Required human-facing output has been generated.
+    - No unresolved blocking conflict remains.
+    - Maximum recovery attempts have not been exceeded.
+    - Human escalation has not suspended the cycle.
+
+fallback_policy:
+  on_missing_artifact: invoke_memory_breathing
+
+  on_validation_failure: return_to_structural_core
+
+  on_route_block: route_to_human_gate
+
+  max_recovery_attempts: 3
+
+human_escalation:
+  enabled: true
+
+  conditions:
+    - Two or more high-priority interpretations remain equally plausible.
+    - Required evidence cannot be obtained.
+    - Boundary and design objectives remain incompatible.
+    - Maximum recovery attempts are exceeded.
+    - The architecture change would reduce explicit human authority.
+
+  presentation_requirements:
+    - Present unresolved conflict.
+    - Present available options.
+    - Preserve uncertainty.
+    - Identify the decision that requires human judgment.
+
+routing_summary: >
+  A deep-structure route is selected because the task requires
+  semantic interpretation, memory continuity, architecture analysis,
+  structural integration, verification, possible boundary review,
+  human-language recomposition, and meta-cognitive rumination.
+
+metadata:
+  architecture: ai-cognitive-architecture
+  release: v0.3.0-candidate
+  layer: cognitive-routing
