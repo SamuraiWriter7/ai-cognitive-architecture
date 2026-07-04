@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/cognitive-feedback-record.schema.json",
+  "title": "Cognitive Feedback Record",
+  "description": "Records evaluation signals and adaptation proposals derived from a completed cognitive cycle and routing plan.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "feedback_record_id",
+    "architecture_id",
+    "created_at",
+    "source_refs",
+    "outcome",
+    "route_evaluation",
+    "organ_evaluations",
+    "human_feedback",
+    "adaptation_proposals",
+    "review_policy"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.4"
+    },
+    "feedback_record_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "architecture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "source_refs": {
+      "$ref": "#/$defs/sourceRefs"
+    },
+    "outcome": {
+      "$ref": "#/$defs/outcomeRecord"
+    },
+    "route_evaluation": {
+      "$ref": "#/$defs/routeEvaluation"
+    },
+    "organ_evaluations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/organEvaluation"
+      }
+    },
+    "human_feedback": {
+      "$ref": "#/$defs/humanFeedback"
+    },
+    "adaptation_proposals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/adaptationProposal"
+      }
+    },
+    "review_policy": {
+      "$ref": "#/$defs/reviewPolicy"
+    },
+    "feedback_summary": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "organType": {
+      "type": "string",
+      "enum": [
+        "finder",
+        "yin_semantic_decomposer",
+        "memory_breathing",
+        "analyst",
+        "structural_core",
+        "verifier",
+        "boundary",
+        "yang_language_recomposer",
+        "human_gate",
+        "structural_rumination",
+        "custom"
+      ]
+    },
+    "sourceRefs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "cycle_record_ref",
+        "routing_plan_ref"
+      ],
+      "properties": {
+        "cycle_record_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "routing_plan_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "human_gate_output_ref": {
+          "type": "string"
+        },
+        "rumination_output_ref": {
+          "type": "string"
+        }
+      }
+    },
+    "outcomeRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "goal_completion",
+        "semantic_preservation",
+        "human_usability",
+        "verification_quality",
+        "overall_score"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "successful",
+            "partially_successful",
+            "unsuccessful",
+            "inconclusive",
+            "human_review_pending"
+          ]
+        },
+        "goal_completion": {
+          "$ref": "#/$defs/score"
+        },
+        "semantic_preservation": {
+          "$ref": "#/$defs/score"
+        },
+        "human_usability": {
+          "$ref": "#/$defs/score"
+        },
+        "verification_quality": {
+          "$ref": "#/$defs/score"
+        },
+        "overall_score": {
+          "$ref": "#/$defs/score"
+        },
+        "unresolved_issues": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "routeEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "route_fit",
+        "route_efficiency",
+        "unnecessary_organs",
+        "missing_organs",
+        "loop_count",
+        "recovery_count",
+        "escalation_quality"
+      ],
+      "properties": {
+        "route_fit": {
+          "$ref": "#/$defs/score"
+        },
+        "route_efficiency": {
+          "$ref": "#/$defs/score"
+        },
+        "unnecessary_organs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organType"
+          },
+          "uniqueItems": true
+        },
+        "missing_organs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/organType"
+          },
+          "uniqueItems": true
+        },
+        "loop_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "recovery_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "escalation_quality": {
+          "$ref": "#/$defs/score"
+        },
+        "route_issues": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "route_strengths": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "organEvaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "organ",
+        "participated",
+        "input_quality",
+        "output_quality",
+        "contract_compliance",
+        "contribution_score"
+      ],
+      "properties": {
+        "organ": {
+          "$ref": "#/$defs/organType"
+        },
+        "participated": {
+          "type": "boolean"
+        },
+        "input_quality": {
+          "$ref": "#/$defs/score"
+        },
+        "output_quality": {
+          "$ref": "#/$defs/score"
+        },
+        "contract_compliance": {
+          "$ref": "#/$defs/score"
+        },
+        "contribution_score": {
+          "$ref": "#/$defs/score"
+        },
+        "issues": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "strengths": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "recommended_changes": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "humanFeedback": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "available",
+        "correction_required",
+        "acceptance_status"
+      ],
+      "properties": {
+        "available": {
+          "type": "boolean"
+        },
+        "correction_required": {
+          "type": "boolean"
+        },
+        "acceptance_status": {
+          "type": "string",
+          "enum": [
+            "accepted",
+            "partially_accepted",
+            "rejected",
+            "not_available",
+            "pending"
+          ]
+        },
+        "corrections": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "preferences": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "adaptationProposal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_id",
+        "target_layer",
+        "proposal_type",
+        "description",
+        "evidence_refs",
+        "priority",
+        "auto_apply"
+      ],
+      "properties": {
+        "proposal_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_layer": {
+          "type": "string",
+          "enum": [
+            "memory",
+            "routing",
+            "organ_interface",
+            "verification",
+            "boundary",
+            "translation",
+            "human_gate",
+            "rumination",
+            "architecture"
+          ]
+        },
+        "proposal_type": {
+          "type": "string",
+          "enum": [
+            "add",
+            "remove",
+            "strengthen",
+            "weaken",
+            "reorder",
+            "reroute",
+            "clarify",
+            "split",
+            "merge",
+            "observe"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "priority": {
+          "$ref": "#/$defs/score"
+        },
+        "auto_apply": {
+          "type": "boolean",
+          "const": false
+        },
+        "requires_human_review": {
+          "type": "boolean"
+        }
+      }
+    },
+    "reviewPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "human_review_required",
+        "auto_apply_changes",
+        "retain_feedback_record"
+      ],
+      "properties": {
+        "human_review_required": {
+          "type": "boolean"
+        },
+        "auto_apply_changes": {
+          "type": "boolean",
+          "const": false
+        },
+        "retain_feedback_record": {
+          "type": "boolean"
+        },
+        "review_reasons": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    }
+  }
+}
