@@ -4,6 +4,95 @@ All notable changes to this project will be documented in this file.
 
 The project uses candidate releases during early architectural development.
 
+## [0.4.0-candidate] - 2026-07-05
+
+### Added
+
+* `Cognitive Feedback Record` specification.
+* Outcome-status evaluation.
+* Goal-completion scoring.
+* Semantic-preservation scoring.
+* Human-usability scoring.
+* Verification-quality scoring.
+* Overall cognitive outcome scoring.
+* Unresolved-issue recording.
+* Route-fit evaluation.
+* Route-efficiency evaluation.
+* Unnecessary-organ detection.
+* Missing-organ detection.
+* Loop-count recording.
+* Recovery-count recording.
+* Human-escalation quality evaluation.
+* Organ-level evaluation records.
+* Input-quality scoring.
+* Output-quality scoring.
+* Interface-contract compliance scoring.
+* Organ contribution scoring.
+* Organ strengths and issue records.
+* Human feedback records.
+* Human correction records.
+* User preference signals.
+* Explicit adaptation proposals.
+* Adaptation target layers.
+* Adaptation proposal types.
+* Evidence references for adaptation proposals.
+* Proposal-priority scoring.
+* Human-review requirements.
+* Explicit prohibition of automatic architecture application.
+* Cognitive Feedback & Adaptation Layer documentation.
+* Extended multi-target validation for v0.1 through v0.4 artifacts.
+
+### Architectural Meaning
+
+v0.1 made cognition observable.
+
+v0.2 defined cognitive organ contracts.
+
+v0.3 introduced adaptive cognitive routing.
+
+v0.4 evaluates whether the selected route and participating cognitive organs actually performed well.
+
+The architecture can now distinguish between:
+
+* successful outcomes with inefficient routes
+* correct routes with weak organ output
+* strong analysis with poor human-language translation
+* useful output with excessive cognitive activation
+* repeated route failures that justify future review
+
+### Design Principle
+
+> Feedback may generate adaptation proposals, but adaptation proposals do not authorize automatic self-modification.
+
+v0.4 therefore introduces a controlled path from:
+
+```text
+Outcome
+↓
+Evaluation
+↓
+Evidence
+↓
+Adaptation Proposal
+↓
+Human Review
+```
+
+### Scope Boundary
+
+v0.4 does not define:
+
+* automatic architecture mutation
+* autonomous prompt rewriting
+* unsupervised route replacement
+* automatic Boundary modification
+* self-approved authority expansion
+* reinforcement learning execution
+* production deployment mechanisms
+
+These remain outside the scope of this release.
+
+
 ## [0.3.0-candidate] - 2026-07-05
 
 ### Added
