@@ -415,3 +415,64 @@ The central principle of v0.3 is:
 > Activate the minimum sufficient cognitive route, then expand the route only when evidence, uncertainty, risk, memory dependency, or structural complexity requires it.
 
 This enables the architecture to move from a fixed cognitive pipeline toward adaptive distributed cognition.
+
+## v0.4 — Cognitive Feedback & Adaptation Layer
+
+v0.4 introduces structured evaluation of completed cognitive cycles.
+
+While v0.3 selects a cognitive route, v0.4 evaluates whether that route, its participating organs, and its final human-facing outcome actually performed well.
+
+The new `Cognitive Feedback Record` captures:
+
+* outcome quality
+* semantic preservation
+* human usability
+* verification quality
+* route fit
+* route efficiency
+* unnecessary organ activation
+* missing cognitive organs
+* loop and recovery counts
+* organ-level contribution
+* human corrections
+* adaptation proposals
+* review requirements
+
+The primary schema is:
+
+`schemas/cognitive-feedback-record.schema.json`
+
+The reference example is:
+
+`examples/cognitive-feedback-record.example.yaml`
+
+### Architectural Progression
+
+```text
+v0.1
+Cognitive Cycle Record
+        ↓
+Observe cognition
+
+v0.2
+Cognitive Organ Interface
+        ↓
+Define cognitive organs
+
+v0.3
+Cognitive Routing Layer
+        ↓
+Select cognitive paths
+
+v0.4
+Cognitive Feedback & Adaptation Layer
+        ↓
+Evaluate outcomes and propose improvements
+```
+
+The central rule of v0.4 is:
+
+> The architecture may generate adaptation proposals, but it must not automatically apply architecture changes.
+
+This creates a reviewable path from cognitive outcome to future improvement while preserving human authority over architectural change.
+
