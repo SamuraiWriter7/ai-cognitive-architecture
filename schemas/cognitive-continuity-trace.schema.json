@@ -1,0 +1,505 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/cognitive-continuity-trace.schema.json",
+  "title": "Cognitive Continuity Trace",
+  "description": "Preserves, transforms, and carries forward important cognitive traces across multiple cognitive cycles.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "continuity_trace_id",
+    "architecture_id",
+    "created_at",
+    "lineage",
+    "inherited_traces",
+    "state_transition",
+    "feedback_carryover",
+    "next_cycle_seed",
+    "continuity_policy",
+    "human_review"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "0.5"
+    },
+    "continuity_trace_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "architecture_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lineage": {
+      "$ref": "#/$defs/lineageRecord"
+    },
+    "inherited_traces": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/traceItem"
+      }
+    },
+    "state_transition": {
+      "$ref": "#/$defs/stateTransition"
+    },
+    "feedback_carryover": {
+      "$ref": "#/$defs/feedbackCarryover"
+    },
+    "next_cycle_seed": {
+      "$ref": "#/$defs/nextCycleSeed"
+    },
+    "continuity_policy": {
+      "$ref": "#/$defs/continuityPolicy"
+    },
+    "human_review": {
+      "$ref": "#/$defs/humanReview"
+    },
+    "continuity_summary": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "stringArray": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "traceType": {
+      "type": "string",
+      "enum": [
+        "question_epicenter",
+        "semantic_structure",
+        "assumption",
+        "constraint",
+        "unresolved_conflict",
+        "design_decision",
+        "memory_context",
+        "routing_pattern",
+        "feedback_pattern",
+        "human_correction",
+        "human_preference",
+        "adaptation_candidate",
+        "custom"
+      ]
+    },
+    "lineageRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_cycle_ref",
+        "previous_cycle_refs",
+        "parent_trace_refs",
+        "lineage_depth"
+      ],
+      "properties": {
+        "current_cycle_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "previous_cycle_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "routing_plan_ref": {
+          "type": "string"
+        },
+        "feedback_record_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "parent_trace_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "lineage_depth": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "traceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trace_id",
+        "trace_type",
+        "summary",
+        "source_ref",
+        "importance",
+        "confidence",
+        "status",
+        "continuity_role"
+      ],
+      "properties": {
+        "trace_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "trace_type": {
+          "$ref": "#/$defs/traceType"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "importance": {
+          "$ref": "#/$defs/score"
+        },
+        "confidence": {
+          "$ref": "#/$defs/score"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "dormant",
+            "consumed",
+            "transformed",
+            "retired"
+          ]
+        },
+        "continuity_role": {
+          "type": "string",
+          "enum": [
+            "direct_context",
+            "constraint",
+            "warning",
+            "hypothesis",
+            "design_seed",
+            "routing_hint",
+            "memory_anchor",
+            "human_correction"
+          ]
+        },
+        "preserve_reason": {
+          "type": "string"
+        },
+        "related_trace_refs": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "stateTransition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "before_summary",
+        "after_summary",
+        "preserved_elements",
+        "transformed_elements",
+        "dropped_elements"
+      ],
+      "properties": {
+        "before_summary": {
+          "type": "string"
+        },
+        "after_summary": {
+          "type": "string"
+        },
+        "preserved_elements": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "transformed_elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/transformationRecord"
+          }
+        },
+        "dropped_elements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dropRecord"
+          }
+        }
+      }
+    },
+    "transformationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_trace_ref",
+        "transformation_type",
+        "output_trace_ref",
+        "description"
+      ],
+      "properties": {
+        "source_trace_ref": {
+          "type": "string"
+        },
+        "transformation_type": {
+          "type": "string",
+          "enum": [
+            "preserve",
+            "compress",
+            "merge",
+            "split",
+            "reframe",
+            "strengthen",
+            "weaken",
+            "retire"
+          ]
+        },
+        "output_trace_ref": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    },
+    "dropRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "trace_ref",
+        "reason",
+        "review_status"
+      ],
+      "properties": {
+        "trace_ref": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "approved",
+            "pending",
+            "rejected",
+            "not_required"
+          ]
+        }
+      }
+    },
+    "feedbackCarryover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "accepted_proposals",
+        "deferred_proposals",
+        "rejected_proposals",
+        "repeated_patterns"
+      ],
+      "properties": {
+        "accepted_proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposalCarryover"
+          }
+        },
+        "deferred_proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposalCarryover"
+          }
+        },
+        "rejected_proposals": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/proposalCarryover"
+          }
+        },
+        "repeated_patterns": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/patternRecord"
+          }
+        }
+      }
+    },
+    "proposalCarryover": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "proposal_ref",
+        "target_layer",
+        "decision_reason"
+      ],
+      "properties": {
+        "proposal_ref": {
+          "type": "string"
+        },
+        "target_layer": {
+          "type": "string",
+          "enum": [
+            "memory",
+            "routing",
+            "organ_interface",
+            "verification",
+            "boundary",
+            "translation",
+            "human_gate",
+            "rumination",
+            "architecture"
+          ]
+        },
+        "decision_reason": {
+          "type": "string"
+        }
+      }
+    },
+    "patternRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "pattern_id",
+        "summary",
+        "occurrence_count",
+        "evidence_refs",
+        "importance"
+      ],
+      "properties": {
+        "pattern_id": {
+          "type": "string"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "occurrence_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "evidence_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "importance": {
+          "$ref": "#/$defs/score"
+        }
+      }
+    },
+    "nextCycleSeed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seed_question",
+        "required_context_refs",
+        "open_conflicts",
+        "priority_targets",
+        "routing_hints"
+      ],
+      "properties": {
+        "seed_question": {
+          "type": "string",
+          "minLength": 1
+        },
+        "required_context_refs": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "open_conflicts": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "priority_targets": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "routing_hints": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "activation_conditions": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    },
+    "continuityPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "max_inherited_traces",
+        "decay_mode",
+        "minimum_importance",
+        "preserve_human_corrections",
+        "preserve_unresolved_conflicts",
+        "require_trace_origin",
+        "allow_silent_drop",
+        "compression_allowed"
+      ],
+      "properties": {
+        "max_inherited_traces": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "decay_mode": {
+          "type": "string",
+          "enum": [
+            "none",
+            "time_based",
+            "relevance_based",
+            "hybrid"
+          ]
+        },
+        "minimum_importance": {
+          "$ref": "#/$defs/score"
+        },
+        "preserve_human_corrections": {
+          "type": "boolean"
+        },
+        "preserve_unresolved_conflicts": {
+          "type": "boolean"
+        },
+        "require_trace_origin": {
+          "type": "boolean"
+        },
+        "allow_silent_drop": {
+          "type": "boolean",
+          "const": false
+        },
+        "compression_allowed": {
+          "type": "boolean"
+        },
+        "review_interval_cycles": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "humanReview": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "decision_status",
+        "reasons",
+        "reviewed_items"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "decision_status": {
+          "type": "string",
+          "enum": [
+            "approved",
+            "partially_approved",
+            "rejected",
+            "pending",
+            "not_required"
+          ]
+        },
+        "reasons": {
+          "$ref": "#/$defs/stringArray"
+        },
+        "reviewed_items": {
+          "$ref": "#/$defs/stringArray"
+        }
+      }
+    }
+  }
+}
