@@ -118,3 +118,77 @@ This release does not yet define:
 * cognitive trace receipts
 
 These remain candidates for future versions.
+
+## [0.3.0-candidate] - 2026-07-05
+
+### Added
+
+* `Cognitive Routing Plan` specification.
+* Input profiling for cognitive task classification.
+* Routing modes:
+
+  * minimal
+  * standard
+  * deep structure
+  * safety review
+  * memory intensive
+  * custom
+* Route-step definitions.
+* Required, conditional, optional, and fallback activation modes.
+* Activation conditions.
+* Skip conditions.
+* Expected input and output artifacts.
+* Controlled cognitive loops.
+* Maximum loop-count limits.
+* Optional parallel-branch declaration.
+* Verification-before-output requirement.
+* Boundary-before-output requirement.
+* Preferred return routes.
+* Explicit termination conditions.
+* Missing-artifact recovery policy.
+* Validation-failure recovery policy.
+* Route-block recovery policy.
+* Maximum recovery-attempt limits.
+* Human escalation conditions.
+* Human escalation presentation requirements.
+* Deep Structure routing example.
+* Cognitive Routing Layer documentation.
+* Multi-target schema validation for v0.1, v0.2, and v0.3 artifacts.
+
+### Architectural Meaning
+
+v0.1 defined the record of one cognitive cycle.
+
+v0.2 defined the contracts of the cognitive organs participating in that cycle.
+
+v0.3 defines how a task selects and traverses a cognitive path.
+
+The architecture can now represent:
+
+* lightweight routes for simple tasks
+* standard analytical routes
+* memory-intensive routes
+* safety-oriented routes
+* deep-structure routes
+* controlled return loops
+* human escalation paths
+
+### Design Principle
+
+> Not every cognitive organ should be activated for every task.
+
+The routing layer selects the minimum sufficient cognitive path and expands the route only when task complexity, uncertainty, risk, memory dependency, or missing evidence requires additional cognition.
+
+### Scope Boundary
+
+v0.3 does not yet define:
+
+* automatic route scoring from historical outcomes
+* cognitive energy cost metrics
+* adaptive route optimization
+* route-learning records
+* cross-cycle continuity
+* autonomous architecture mutation
+
+These remain candidates for future versions.
+
