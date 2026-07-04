@@ -1,0 +1,294 @@
+schema_version: "0.1"
+
+architecture_id: ai-cognitive-architecture-v0.1
+
+cycle_id: cognitive-cycle-001
+
+created_at: "2026-07-05T04:00:00+09:00"
+
+input:
+  human_text: >
+    AIは、人間の言葉を本当に理解しているのか。
+    そしてAI同士にしか理解できないAI語のようなものは存在するのか。
+  environment_refs:
+    - user-dialogue
+  log_refs:
+    - trace-relay-session-001
+
+organs:
+  finder:
+    status: active
+    input_refs:
+      - human-input
+    output_refs:
+      - raw-info-set
+
+  yin_semantic_decomposer:
+    status: active
+    input_refs:
+      - raw-info-set
+    output_refs:
+      - semantic-structure
+      - ambiguity-map
+
+  memory_breathing:
+    status: active
+    input_refs:
+      - semantic-structure
+    output_refs:
+      - context-frame
+      - history-trace
+
+  analyst:
+    status: active
+    input_refs:
+      - semantic-structure
+      - context-frame
+    output_refs:
+      - analysis-graph
+      - hypothesis-set
+
+  structural_core:
+    status: active
+    input_refs:
+      - semantic-structure
+      - analysis-graph
+      - history-trace
+    output_refs:
+      - integrated-structure
+      - conflict-report
+      - priority-map
+
+  verifier:
+    status: active
+    input_refs:
+      - integrated-structure
+    output_refs:
+      - validation-report
+
+  boundary:
+    status: active
+    input_refs:
+      - integrated-structure
+      - validation-report
+    output_refs:
+      - filtered-output
+
+  yang_language_recomposer:
+    status: active
+    input_refs:
+      - filtered-output
+    output_refs:
+      - human-text
+      - example-set
+
+  human_gate:
+    status: active
+    input_refs:
+      - human-text
+      - validation-report
+    output_refs:
+      - human-facing-bundle
+
+  structural_rumination:
+    status: active
+    input_refs:
+      - human-facing-bundle
+      - full-cycle-trace
+    output_refs:
+      - meta-structure-update
+
+cycle:
+  - stage_id: stage-01
+    order: 1
+    organ: finder
+    status: completed
+    input_artifacts:
+      - human-input
+    output_artifacts:
+      - raw-info-set
+    summary: >
+      Collected the user question and relevant dialogue context.
+
+  - stage_id: stage-02
+    order: 2
+    organ: yin_semantic_decomposer
+    status: completed
+    input_artifacts:
+      - raw-info-set
+    output_artifacts:
+      - semantic-structure
+      - ambiguity-map
+    summary: >
+      Decomposed the question into concepts of language,
+      understanding, internal representation, and AI-to-AI communication.
+
+  - stage_id: stage-03
+    order: 3
+    organ: memory_breathing
+    status: completed
+    input_artifacts:
+      - semantic-structure
+    output_artifacts:
+      - context-frame
+      - history-trace
+    summary: >
+      Connected the question to earlier Multi-Wing,
+      Trace Relay, and structural translation concepts.
+
+  - stage_id: stage-04
+    order: 4
+    organ: analyst
+    status: completed
+    input_artifacts:
+      - semantic-structure
+      - context-frame
+    output_artifacts:
+      - analysis-graph
+      - hypothesis-set
+    summary: >
+      Compared human language, machine representations,
+      emergent protocols, and auditable intermediate structures.
+
+  - stage_id: stage-05
+    order: 5
+    organ: structural_core
+    status: completed
+    input_artifacts:
+      - semantic-structure
+      - analysis-graph
+      - history-trace
+    output_artifacts:
+      - integrated-structure
+      - conflict-report
+      - priority-map
+    summary: >
+      Integrated interpretation, analysis, and historical context.
+
+  - stage_id: stage-06
+    order: 6
+    organ: verifier
+    status: completed
+    input_artifacts:
+      - integrated-structure
+    output_artifacts:
+      - validation-report
+    summary: >
+      Checked whether claims exceeded observable model capabilities.
+
+  - stage_id: stage-07
+    order: 7
+    organ: boundary
+    status: completed
+    input_artifacts:
+      - integrated-structure
+      - validation-report
+    output_artifacts:
+      - filtered-output
+    summary: >
+      Prevented false claims of direct access to hidden model states.
+
+  - stage_id: stage-08
+    order: 8
+    organ: yang_language_recomposer
+    status: completed
+    input_artifacts:
+      - filtered-output
+    output_artifacts:
+      - human-text
+      - example-set
+    summary: >
+      Reconstructed the integrated structure as human-readable explanation.
+
+  - stage_id: stage-09
+    order: 9
+    organ: human_gate
+    status: completed
+    input_artifacts:
+      - human-text
+      - validation-report
+    output_artifacts:
+      - human-facing-bundle
+    summary: >
+      Prepared the response in a form suitable for human understanding and judgment.
+
+  - stage_id: stage-10
+    order: 10
+    organ: structural_rumination
+    status: completed
+    input_artifacts:
+      - human-facing-bundle
+      - full-cycle-trace
+    output_artifacts:
+      - meta-structure-update
+    summary: >
+      Identified structural translation as a reusable cognitive layer.
+
+integration:
+  integrated_structure:
+    core_question: >
+      How can meaning move safely between human language,
+      machine-oriented structure, and human understanding?
+    main_concepts:
+      - human_language
+      - structural_representation
+      - machine_communication
+      - semantic_translation
+      - auditability
+    central_relation: >
+      Human language and machine processing need an auditable
+      intermediate structure to preserve meaning across translation.
+
+  conflict_report:
+    - conflict_id: conflict-001
+      description: >
+        The term AI language may refer either to internal representations
+        or to explicit communication protocols between AI agents.
+      status: resolved
+
+  priority_map:
+    - target: semantic_preservation
+      weight: 1.0
+      reason: >
+        Meaning preservation is the primary goal of the architecture.
+
+    - target: auditability
+      weight: 0.9
+      reason: >
+        Structural transformations must remain inspectable by humans.
+
+    - target: communication_efficiency
+      weight: 0.7
+      reason: >
+        Efficient AI-to-AI communication matters, but must not erase accountability.
+
+human_gate:
+  summary: >
+    AI Cognitive Architecture v0.1 treats specialized GPTs as cognitive organs
+    connected through an auditable structural processing cycle.
+  options:
+    - Continue specification toward dynamic routing.
+    - Extend the cognitive cycle with formal trace receipts.
+    - Define separate schemas for each cognitive organ.
+  warnings:
+    - >
+      The architecture is a functional cognitive model,
+      not a literal reproduction of the human brain.
+  decision_required: false
+
+rumination:
+  meta_structure_update: >
+    Structural Translation should be treated as a central semantic
+    integration layer rather than a simple output formatting step.
+  memory_updates:
+    - >
+      Preserve the distinction between internal representation,
+      explicit AI communication protocol, and human-facing language.
+  routing_updates:
+    - >
+      Allow Verifier and Boundary to return outputs to Structural Core
+      before final language recomposition.
+  architecture_updates:
+    - >
+      Consider bidirectional loops between Structural Core,
+      Verifier, and Boundary in v0.2 or later.
