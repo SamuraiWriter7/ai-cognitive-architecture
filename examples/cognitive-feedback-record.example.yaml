@@ -1,0 +1,333 @@
+schema_version: "0.4"
+
+feedback_record_id: cognitive-feedback-001
+
+architecture_id: ai-cognitive-architecture-v0.4
+
+created_at: "2026-07-05T06:00:00+09:00"
+
+source_refs:
+  cycle_record_ref: cognitive-cycle-001
+  routing_plan_ref: routing-plan-deep-structure-001
+  human_gate_output_ref: human-facing-bundle-001
+  rumination_output_ref: meta-structure-update-001
+
+outcome:
+  status: successful
+
+  goal_completion: 0.91
+
+  semantic_preservation: 0.94
+
+  human_usability: 0.88
+
+  verification_quality: 0.92
+
+  overall_score: 0.91
+
+  unresolved_issues:
+    - >
+      The distinction between functional cognitive analogy
+      and biological brain equivalence should remain explicit.
+
+  notes: >
+    The cognitive route produced a coherent architecture proposal
+    while preserving uncertainty and human review boundaries.
+
+route_evaluation:
+  route_fit: 0.93
+
+  route_efficiency: 0.81
+
+  unnecessary_organs: []
+
+  missing_organs: []
+
+  loop_count: 1
+
+  recovery_count: 0
+
+  escalation_quality: 0.87
+
+  route_issues:
+    - >
+      Finder was activated although most required context
+      was already available in Memory Breathing.
+
+  route_strengths:
+    - >
+      Memory Breathing preserved continuity with prior architecture work.
+    - >
+      Structural Core re-integration after verification improved consistency.
+    - >
+      Human Gate clearly separated semantic integration from human decision support.
+
+organ_evaluations:
+  - organ: yin_semantic_decomposer
+    participated: true
+    input_quality: 0.94
+    output_quality: 0.92
+    contract_compliance: 0.97
+    contribution_score: 0.91
+
+    strengths:
+      - >
+        Correctly separated the visible question from the deeper architecture question.
+
+    issues: []
+
+    recommended_changes:
+      - >
+        Preserve explicit distinction between analogy and implementation claim.
+
+  - organ: memory_breathing
+    participated: true
+    input_quality: 0.91
+    output_quality: 0.95
+    contract_compliance: 0.96
+    contribution_score: 0.94
+
+    strengths:
+      - >
+        Recovered relevant Multi-Wing and Structural Translation context.
+
+    issues: []
+
+    recommended_changes:
+      - >
+        Add stronger relevance weighting before activating external Finder routes.
+
+  - organ: finder
+    participated: true
+    input_quality: 0.72
+    output_quality: 0.79
+    contract_compliance: 0.93
+    contribution_score: 0.61
+
+    strengths:
+      - >
+        Added external context useful for comparison.
+
+    issues:
+      - >
+        Activation was not strictly necessary for the architecture design task.
+
+    recommended_changes:
+      - >
+        Raise Finder activation threshold when memory context is already sufficient.
+
+  - organ: analyst
+    participated: true
+    input_quality: 0.94
+    output_quality: 0.93
+    contract_compliance: 0.96
+    contribution_score: 0.94
+
+    strengths:
+      - >
+        Distinguished task workflow from cognitive functional decomposition.
+
+    issues: []
+
+    recommended_changes: []
+
+  - organ: structural_core
+    participated: true
+    input_quality: 0.95
+    output_quality: 0.96
+    contract_compliance: 0.97
+    contribution_score: 0.98
+
+    strengths:
+      - >
+        Integrated semantic, memory, and analytical structures without removing unresolved uncertainty.
+
+    issues: []
+
+    recommended_changes:
+      - >
+        Preserve re-integration as an explicit routing option after validation.
+
+  - organ: verifier
+    participated: true
+    input_quality: 0.95
+    output_quality: 0.92
+    contract_compliance: 0.98
+    contribution_score: 0.91
+
+    strengths:
+      - >
+        Prevented biological-equivalence claims from being overstated.
+
+    issues: []
+
+    recommended_changes: []
+
+  - organ: boundary
+    participated: true
+    input_quality: 0.91
+    output_quality: 0.89
+    contract_compliance: 0.96
+    contribution_score: 0.84
+
+    strengths:
+      - >
+        Preserved human review boundaries.
+
+    issues:
+      - >
+        Boundary activation may be unnecessary for low-risk architecture discussions.
+
+    recommended_changes:
+      - >
+        Keep Boundary conditional unless authority or safety conditions are triggered.
+
+  - organ: yang_language_recomposer
+    participated: true
+    input_quality: 0.95
+    output_quality: 0.91
+    contract_compliance: 0.96
+    contribution_score: 0.90
+
+    strengths:
+      - >
+        Reconstructed complex architecture concepts in accessible human language.
+
+    issues: []
+
+    recommended_changes:
+      - >
+        Keep final integration summary shorter than analytical sections.
+
+  - organ: human_gate
+    participated: true
+    input_quality: 0.93
+    output_quality: 0.91
+    contract_compliance: 0.97
+    contribution_score: 0.92
+
+    strengths:
+      - >
+        Presented conclusions without replacing human judgment.
+
+    issues: []
+
+    recommended_changes: []
+
+  - organ: structural_rumination
+    participated: true
+    input_quality: 0.91
+    output_quality: 0.94
+    contract_compliance: 0.96
+    contribution_score: 0.95
+
+    strengths:
+      - >
+        Identified Finder over-activation and preserved it as a routing improvement proposal.
+
+    issues: []
+
+    recommended_changes:
+      - >
+        Compare similar feedback records before recommending architecture-level changes.
+
+human_feedback:
+  available: true
+
+  correction_required: false
+
+  acceptance_status: accepted
+
+  corrections: []
+
+  preferences:
+    - >
+      Keep the architecture modular and avoid premature autonomous self-modification.
+    - >
+      Prefer explicit structural records before implementation complexity.
+
+  notes: >
+    The proposed architecture direction was accepted for further specification.
+
+adaptation_proposals:
+  - proposal_id: adaptation-001
+
+    target_layer: routing
+
+    proposal_type: strengthen
+
+    description: >
+      Increase the minimum condition for Finder activation
+      when Memory Breathing already provides sufficient context.
+
+    evidence_refs:
+      - cognitive-feedback-001.route_evaluation
+      - cognitive-feedback-001.organ_evaluations.finder
+
+    priority: 0.78
+
+    auto_apply: false
+
+    requires_human_review: true
+
+  - proposal_id: adaptation-002
+
+    target_layer: routing
+
+    proposal_type: strengthen
+
+    description: >
+      Preserve an explicit Verifier-to-Structural-Core
+      re-integration route for complex design tasks.
+
+    evidence_refs:
+      - cognitive-feedback-001.route_strengths
+
+    priority: 0.88
+
+    auto_apply: false
+
+    requires_human_review: true
+
+  - proposal_id: adaptation-003
+
+    target_layer: rumination
+
+    proposal_type: clarify
+
+    description: >
+      Require Structural Rumination to compare repeated feedback patterns
+      before proposing architecture-level modification.
+
+    evidence_refs:
+      - cognitive-feedback-001.organ_evaluations.structural_rumination
+
+    priority: 0.91
+
+    auto_apply: false
+
+    requires_human_review: true
+
+review_policy:
+  human_review_required: true
+
+  auto_apply_changes: false
+
+  retain_feedback_record: true
+
+  review_reasons:
+    - >
+      Routing changes affect future cognitive behavior.
+    - >
+      Architecture changes require comparison across multiple cycles.
+
+feedback_summary: >
+  The cognitive route was successful and semantically stable.
+  The main improvement opportunity is reducing unnecessary Finder activation
+  when sufficient context already exists in Memory Breathing.
+  No automatic architecture changes are authorized.
+
+metadata:
+  architecture: ai-cognitive-architecture
+  release: v0.4.0-candidate
+  layer: cognitive-feedback-adaptation
