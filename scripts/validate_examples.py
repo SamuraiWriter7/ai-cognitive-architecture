@@ -29,6 +29,12 @@ VALIDATION_TARGETS = [
         ROOT / "examples"
         / "cognitive-routing-plan.deep-structure.example.yaml",
     ),
+    (
+        "Cognitive Feedback Record",
+        ROOT / "schemas" / "cognitive-feedback-record.schema.json",
+        ROOT / "examples"
+        / "cognitive-feedback-record.example.yaml",
+    ),
 ]
 
 
